@@ -1,38 +1,30 @@
 const sequelize = require('../db');
 const { DataTypes } = require('sequelize');
 
-const patients = sequelize.define("patients", {
-    id_Patient: {
+const user = sequelize.define("user", {
+    name: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true
     },
-    age: {
+    firstLastName: {
         type: DataTypes.INTEGER,
         allowNull: true
     },
-    weight: {
+    secondLastName: {
         type: DataTypes.INTEGER,
         allowNull: true
     },
-    sex: {
+    codeExternal: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    height: {
+    typeStudy: {
         type: DataTypes.INTEGER,
-        allowNull: true
-    },
-    blood: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    code: {
-        type: DataTypes.STRING,
         allowNull: true
     }
 },{
     timestamps: false
 });
 
-module.exports=patients
+module.exports=user
