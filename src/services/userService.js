@@ -1,27 +1,22 @@
 var Sequelize = require('sequelize');
-const patientsModel= require("../models/patientsModel.js")
-const expedientsModel= require("../models/expedientsModel.js")
-const doctorModel= require("../models/doctorsModel.js")
+const patientsModel= require("../models/answerModel.js")
+const expedientsModel= require("../models/questionModel.js")
+const doctorModel= require("../models/surveyModel.js")
 const loginDoctor = require('../models/loginDoctorModel.js');
 const loginPatient = require('../models/loginPatientModel.js');
-
-
 require('dotenv').config()
 
 module.exports.getPersonalDataDBService = (req,res)=> {
     return new Promise(async function myFn(resolve, reject) {
-        
         const key_init = req
         if (key_init == ""){
-            reject({ status:false,msg: "llene el campo"});
+            reject({ status:false,msg: "Llene el campo"});
         }
         doctorModel.findOne({
             where: {id_Doctor: key_init}
         })
             .then(user =>{
-
                 if (user) {
-
                     loginDoctor.findOne({
                         where: {key_init: key_init}
                     }).then(medic => {
@@ -41,21 +36,17 @@ module.exports.getPersonalDataDBService = (req,res)=> {
                         }
                     })
 
-
                     
                 }
                 else{
-                    reject({ status:false,msg: "no hay usuarios con este username"});
+                    reject({ status:false,msg: "No hay usuarios con este username"});
                 }
 
 
             }).catch(err=>{
             console.log(err)
-            reject({status:false, msg: "no tienes permisos"})
+            reject({status:false, msg: "No tienes permisos"})
         })
-
-
-
     })
 }
 
@@ -63,7 +54,7 @@ module.exports.getPatientDBService = (req,code,res)=> {
     return new Promise(async function myFn(resolve, reject) {
         const code = req;
         if (code == ""){
-            reject({ status:false,msg: "llene el campo"});
+            reject({ status:false,msg: "Llene el campo"});
         }
         patientsModel.findOne({
             where: {code: code}
@@ -86,16 +77,14 @@ module.exports.getPatientDBService = (req,code,res)=> {
                         }})
                     }).catch(err=>{
                         console.log(err)
-                        reject({status:false, msg: "ha sucedido un error"})
-
-                    })
-                    
+                        reject({status:false, msg: "Ha sucedido un error"})
+                    })          
                 }else{
-                    reject({ status:false,msg: "no hay usuarios con este codigo"});
+                    reject({ status:false,msg: "No hay usuarios con este codigo"});
                 }
             }).catch(err=>{
             console.log(err)
-            reject({status:false, msg: "ha sucedido un error"})
+            reject({status:false, msg: "Ha sucedido un error"})
         })
     })
 }
@@ -109,7 +98,7 @@ module.exports.updateInfoPatientDBService = (req,res)=> {
         const weight = req.weight
         
         if (code == "" || age =="" || height =="" || weight ==""){
-            reject({ status:false,msg: "llene alguno de los campos"});
+            reject({ status:false,msg: "Llene alguno de los campos"});
         }
         patientsModel.update({age: age,height:height,weight:weight},{
             where: {code: code}
@@ -117,21 +106,22 @@ module.exports.updateInfoPatientDBService = (req,res)=> {
         .then(user =>{
             if (user>0) {
                 
-                resolve({status: true, msg: "usuario actualizado"})
+                resolve({status: true, msg: "Usuario actualizado"})
                 
             }
-            reject({ status:false,msg: "no hay usuarios con este username"});
+            reject({ status:false,msg: "No hay usuarios con este username"});
             
             
         }).catch(err=>{
             console.log(err)
-            reject({status:false, msg: "ha sucedido un error"})
+            reject({status:false, msg: "Ha sucedido un error"})
         })
         
         
         
     })
 }
+
 
 module.exports.addPrescriptionDBService = (req,res)=> {
     return new Promise(async function myFn(resolve, reject) {
@@ -141,17 +131,17 @@ module.exports.addPrescriptionDBService = (req,res)=> {
         const treatment = req.treatment
 
         if (id_Patient == "" || diagnostic=="" || treatment==""){
-            reject({ status:false,msg: "llene el campo"});
+            reject({ status:false,msg: "Llene el campo"});
         }
         expedientsModel.create({id_Patient: id_Patient,diagnostic:diagnostic,treatment:treatment})
             .then(user =>{
                 if (user) {
-                    resolve({status: true, msg: "tratamiento enviado"})
+                    resolve({status: true, msg: "Tratamiento enviado"})
                 }
-                reject({ status:false,msg: "no se pudo crear "});
+                reject({ status:false,msg: "No se pudo crear "});
             }).catch(err=>{
             console.log(err)
-            reject({status:false, msg: "ha sucedido un error"})
+            reject({status:false, msg: "Ha sucedido un error"})
         })
     })
 }

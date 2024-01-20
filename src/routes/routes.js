@@ -1,22 +1,23 @@
 const express=require("express");
-var loginController = require('../controllers/loginController.js');
+var surveyController = require('../controllers/surveyController.js');
 var patientController = require('../controllers/patientController.js');
-var doctorController = require('../controllers/doctorController.js');
+var doctorController = require('../controllers/userController.js');
 var laboratoryController = require('../controllers/laboratoryController.js');
 
 const router =express.Router()
 const verify=require('../jwt/Verify.js');
 
 
-/* LOGIN */
-router.route('/login/patient').post(loginController.loginPatientControllerFunc)
-router.route('/login/doctor').post(loginController.loginDoctorControllerFunc)
-router.route('/login/laboratory').post(loginController.loginLaboratoryControllerFunc)
+/* CREAR ENCUESTA */
+router.route('/survey/create').post(loginController.loginPatientControllerFunc)
+/* VER ENCUESTAS */
+router.route('/survey').get(verify,patientController.getStudiesControllerFunc)
 
-/*PATIENT */
-router.route('/patient/personal').get(verify,patientController.getPersonalDataControllerFunc)
-router.route('/patient/expedients').get(verify,patientController.getExpedientsControllerFunc)
-router.route('/patient/laboratory').get(verify,patientController.getStudiesControllerFunc)
+/* USUARIO CONTESTAR ENCUESTA */
+router.route('/user/survey/:id').post(verify,patientController.getPersonalDataControllerFunc)
+/* CREAR USUARIO */
+router.route('/user/create').get(verify,patientController.getExpedientsControllerFunc)
+
 
 /*DOCTOR*/
 router.route('/doctor/personal').get(verify,doctorController.getPersonalDataControllerFunc)

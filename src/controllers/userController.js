@@ -1,25 +1,10 @@
-const laboratoryService = require('../services/laboratoryService.js');
+const doctorService = require('../services/userService.js');
 
-const getWaitingPatientsControllerFunc = async (req, res) => {
+const getPersonalDataControllerFunc = async (req, res) => {
     let result = null;
+    const key =req.user.user.key_init
     try {
-        result = await laboratoryService.getWaitingPatientsDBService(req);
-        if (result.status) {
-            res.send({"status": true, "message": result.msg});
-        } else {
-
-            res.send({"status": false, "message": result.msg});
-        }
-
-    } catch (error) {
-
-        res.send({"status": false, "message": error.msg});
-    }
-};
-const getAllPatientsControllerFunc = async (req, res) => {
-    let result = null;
-    try {
-        result = await laboratoryService.getAllPatientsDBService(req);
+        result = await doctorService.getPersonalDataDBService(key);
         if (result.status) {
             res.send({"status": true, "message": result.msg});
         } else {
@@ -33,11 +18,13 @@ const getAllPatientsControllerFunc = async (req, res) => {
     }
 };
 
-const getPatientDataControllerFunc = async (req, res) => {
+const getPatientControllerFunc = async (req, res) => {
     let result = null;
     const code = req.query.code;
+    
+
     try {
-        result = await laboratoryService.getPatientDBService(code);
+        result = await doctorService.getPatientDBService(code);
         if (result.status) {
             res.send({"status": true, "message": result.msg});
         } else {
@@ -51,13 +38,12 @@ const getPatientDataControllerFunc = async (req, res) => {
     }
 };
 
-const addWaitingPatientControllerFunc = async (req, res) => {
+const updateInfoPatientControllerFunc = async (req, res) => {
     let result = null;
     const data = req.body
-
     
     try {
-        result = await laboratoryService.addWaitingPatientDBService(data);
+        result = await doctorService.updateInfoPatientDBService(data);
 
         if (result.status) {
             res.send({"status": true, "message": result.msg});
@@ -72,13 +58,12 @@ const addWaitingPatientControllerFunc = async (req, res) => {
     }
 };
 
-const sendStudiesControllerFunc = async (req, res) => {
+const addPrescriptionControllerFunc = async (req, res) => {
     let result = null;
-    const code = req.query.code;
-    console.log(code);
+    const data = req.body
     
     try {
-        result = await laboratoryService.sendStudiesDBService(code);
+        result = await doctorService.addPrescriptionDBService(data);
 
         if (result.status) {
             res.send({"status": true, "message": result.msg});
@@ -96,4 +81,4 @@ const sendStudiesControllerFunc = async (req, res) => {
 
 
 
-module.exports = { getWaitingPatientsControllerFunc, getPatientDataControllerFunc, addWaitingPatientControllerFunc, sendStudiesControllerFunc,getAllPatientsControllerFunc };
+module.exports = { getPersonalDataControllerFunc, getPatientControllerFunc, updateInfoPatientControllerFunc, addPrescriptionControllerFunc};

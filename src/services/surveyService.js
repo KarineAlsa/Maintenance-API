@@ -1,5 +1,5 @@
-const patientsModel= require("../models/patientsModel.js")
-const expedientsModel= require("../models/expedientsModel.js")
+const patientsModel= require("../models/answerModel.js")
+const expedientsModel= require("../models/questionModels.js")
 const laboratoryModel= require("../models/laboratoryModel.js")
 const loginPatient = require('../models/loginPatientModel.js');
 require('dotenv').config()
