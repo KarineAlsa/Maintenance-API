@@ -9,14 +9,17 @@ const corsoption = {
 };
 app.use(cors(corsoption));
 
-var routes = require('./routes/routes.js');
 
+
+var routes = require('./routes/routes.js');
+;
 require('dotenv').config()
 
 const PORT=process.env.PORT
 
 app.use(express.json());
 app.use(routes);
+console.log(PORT)
 app.listen(PORT, ()=>
     console.log("API iniciada en puerto: " + PORT)
 )

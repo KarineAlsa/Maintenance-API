@@ -1,37 +1,20 @@
-const express=require("express");
-var surveyController = require('../controllers/surveyController.js');
-var patientController = require('../controllers/patientController.js');
-var doctorController = require('../controllers/userController.js');
-var laboratoryController = require('../controllers/laboratoryController.js');
-
-const router =express.Router()
-const verify=require('../jwt/Verify.js');
+const express = require("express");
+const surveyController = require('../controllers/surveyController.js');
+const userController = require('../controllers/userController.js');
+const router = express.Router();
 
 
 /* CREAR ENCUESTA */
-router.route('/survey/create').post(loginController.loginPatientControllerFunc)
+router.route('/survey/create').post(surveyController.createSurvey)
 /* VER ENCUESTAS */
-router.route('/survey').get(verify,patientController.getStudiesControllerFunc)
+router.route('/survey').get(surveyController.getAll)
 
 /* USUARIO CONTESTAR ENCUESTA */
-router.route('/user/survey/:id').post(verify,patientController.getPersonalDataControllerFunc)
+router.route('/user/survey/:id').post(userController.surveyPosted)
 /* CREAR USUARIO */
-router.route('/user/create').get(verify,patientController.getExpedientsControllerFunc)
+router.route('/user/create').post(userController.userRegister)
+//router.route('/user/:id').get(userController.userid)
+console.log("despues de cors")
 
 
-/*DOCTOR*/
-router.route('/doctor/personal').get(verify,doctorController.getPersonalDataControllerFunc)
-router.route('/doctor/search').get(verify,doctorController.getPatientControllerFunc)
-router.route('/doctor/update').put(verify,doctorController.updateInfoPatientControllerFunc)
-router.route('/doctor/prescription').post(verify,doctorController.addPrescriptionControllerFunc)
-
-/*LABORATORY*/
-router.route('/laboratory/all').get(verify,laboratoryController.getWaitingPatientsControllerFunc) //ya
-router.route('/laboratory/search').get(verify,laboratoryController.getPatientDataControllerFunc) //ya
-router.route('/laboratory/add').post(verify,laboratoryController.addWaitingPatientControllerFunc)
-router.route('/laboratory/send').delete(verify,laboratoryController.sendStudiesControllerFunc)
-
-
-router.route('/all/patient').get(verify,laboratoryController.getAllPatientsControllerFunc) //ya
-
-module.exports=router;
+module.exports = router

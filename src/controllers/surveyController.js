@@ -1,9 +1,9 @@
-const userService = require('../services/loginService.js');
+const surveyService = require('../services/surveyService.js');
 
-const loginPatientControllerFunc = async (req, res) => {
+const createSurvey = async (req, res) => {
     let result = null;
     try {
-        result = await userService.loginPatientDBService(req.body);
+       
         if (result.status) {
             res.send({"status": true, "message": result.msg});
         } else {
@@ -17,10 +17,10 @@ const loginPatientControllerFunc = async (req, res) => {
     }
 };
 
-const loginDoctorControllerFunc = async (req, res) => {
+const getAll = async (req, res) => {
     let result = null;
     try {
-        result = await userService.loginDoctorDBService(req.body);
+    
         if (result.status) {
             res.send({"status": true, "message": result.msg});
         } else {
@@ -34,10 +34,10 @@ const loginDoctorControllerFunc = async (req, res) => {
     }
 };
 
-const loginLaboratoryControllerFunc = async (req, res) => {
+const userid = async (req, res) => {
     let result = null;
     try {
-        result = await userService.loginLaboratoryDBService(req.body);
+       
         if (result.status) {
             res.send({"status": true, "message": result.msg});
         } else {
@@ -54,4 +54,4 @@ const loginLaboratoryControllerFunc = async (req, res) => {
 
 
 
-module.exports = { loginPatientControllerFunc, loginDoctorControllerFunc, loginLaboratoryControllerFunc};
+module.exports = { createSurvey,getAll, userid};
