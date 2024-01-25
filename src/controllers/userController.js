@@ -1,8 +1,10 @@
-
+const userService = require('../services/userService.js');
 
 const userRegister = async (req, res) => {
     let result = null;
     const key =req
+
+    result = await userService.createUser(req.body)
     try {
         
         if (result.status) {

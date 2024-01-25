@@ -2,6 +2,8 @@ const surveyService = require('../services/surveyService.js');
 
 const createSurvey = async (req, res) => {
     let result = null;
+
+    result = await surveyService.createSurvey(req.body)
     try {
        
         if (result.status) {
