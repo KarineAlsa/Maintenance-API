@@ -16,7 +16,7 @@ router.route('/user/survey/:id').post(userController.surveyPosted)
 /* CREAR USUARIO */
 router.route('/user/create').post(userController.userRegister)
 //router.route('/user/:id').get(userController.userid)
-console.log("despues de cors")
+
 
 
 module.exports = router

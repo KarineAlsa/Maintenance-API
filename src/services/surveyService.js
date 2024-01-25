@@ -74,13 +74,25 @@ module.exports.getAll = (req,res)=> {
 }
 
 module.exports.getbyId = (req,res)=> {
-    return new Promise(async function myFn(resolve, reject) {    
-        surveyModel.findByPk(req.id).then(survey=>{
+    return new Promise(async function myFn(resolve, reject) {  
+        let questions=[]  
+        let answers=[]  
+        surveyModel.findByPk(req.id, {
+            include: [
+              {
+                model: questionModel,
+                include: answerModel, // Incluye las respuestas dentro de cada pregunta
+              },
+            ],
+          }).then(survey=>{
             if(survey){
+
                 resolve({status: true, msg: survey})
             }
             reject({ status:false,msg: "no hay encuestas con ese id"});
-        }).catch(err=>{
+          })
+            
+        .catch(err=>{
             console.log(err)
             reject({ status:false,msg: "no hay encuestas con ese id"});
     })
