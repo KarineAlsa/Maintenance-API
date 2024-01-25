@@ -1,4 +1,6 @@
 const userService = require('../services/userService.js');
+const surveyService = require('../services/surveyService.js');
+
 
 const userRegister = async (req, res) => {
     let result = null;
@@ -42,9 +44,10 @@ const userid = async (req, res) => {
 
 const surveyPosted = async (req, res) => {
     let result = null;
-    const data = req.body
+    const data = {id: req.params.id,data: req.body}
     
     try {
+        result = await userService.surveyPosted(data)
         
         if (result.status) {
             res.send({"status": true, "message": result.msg});
