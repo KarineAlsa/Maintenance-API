@@ -3,8 +3,8 @@ const surveyService = require('../services/surveyService.js');
 const createSurvey = async (req, res) => {
     let result = null;
 
-    result = await surveyService.createSurvey(req.body)
     try {
+        result = await surveyService.createSurvey(req.body)
        
         if (result.status) {
             res.send({"status": true, "message": result.msg});
@@ -21,7 +21,10 @@ const createSurvey = async (req, res) => {
 
 const getAll = async (req, res) => {
     let result = null;
+
+    
     try {
+        result = await surveyService.getAll()
     
         if (result.status) {
             res.send({"status": true, "message": result.msg});
@@ -34,11 +37,13 @@ const getAll = async (req, res) => {
 
         res.send({"status": false, "message": error.msg});
     }
-};
+}; 
 
-const userid = async (req, res) => {
+const getbyId = async (req, res) => {
     let result = null;
+    const id = req.params
     try {
+        result = await surveyService.getbyId(id)
        
         if (result.status) {
             res.send({"status": true, "message": result.msg});
@@ -56,4 +61,4 @@ const userid = async (req, res) => {
 
 
 
-module.exports = { createSurvey,getAll, userid};
+module.exports = { getbyId,createSurvey,getAll};

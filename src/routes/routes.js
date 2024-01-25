@@ -8,6 +8,8 @@ const router = express.Router();
 router.route('/survey/create').post(surveyController.createSurvey)
 /* VER ENCUESTAS */
 router.route('/survey').get(surveyController.getAll)
+/* OBTENER UNA ENCUESTA POR SU ID */
+router.route('/survey/:id').get(surveyController.getbyId)
 
 /* USUARIO CONTESTAR ENCUESTA */
 router.route('/user/survey/:id').post(userController.surveyPosted)

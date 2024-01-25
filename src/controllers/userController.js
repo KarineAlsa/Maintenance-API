@@ -4,8 +4,8 @@ const userRegister = async (req, res) => {
     let result = null;
     const key =req
 
-    result = await userService.createUser(req.body)
     try {
+        result = await userService.createUser(req.body)
         
         if (result.status) {
             res.send({"status": true, "message": result.msg});

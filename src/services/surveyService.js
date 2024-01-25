@@ -1,6 +1,7 @@
 const surveyModel= require("../models/surveyModel.js")
 const answerModel= require("../models/answerModel.js")
 const questionModel= require("../models/questionModel.js")
+const survey = require("../models/surveyModel.js")
 
 require('dotenv').config()
 
@@ -73,6 +74,44 @@ module.exports.createSurvey = (req,res)=> {
     })
 }
 
+module.exports.getAll = (req,res)=> {
+    return new Promise(async function myFn(resolve, reject) {
+        
+
+        surveyModel.findAll().then(surveys=>{
+
+            if(surveys.length >0){
+                resolve({status: true, msg: surveys})
+                
+            }
+
+            reject({ status:false,msg: "no hay encuestas"});
+
+        }).catch(err=>{
+            console.log(err)
+            
+    })
+
+
+    })
+}
+
+module.exports.getbyId = (req,res)=> {
+    return new Promise(async function myFn(resolve, reject) {
+        
+        
+        surveyModel.findByPk(req.id).then(survey=>{
+            if(survey){
+                resolve({status: true, msg: survey})
+                
+            }
+            reject({ status:false,msg: "no hay encuestas con ese id"});
+        }).catch(err=>{
+            console.log(err)
+            reject({ status:false,msg: "no hay encuestas con ese id"});
+    })
+    })
+}
 
 
 
